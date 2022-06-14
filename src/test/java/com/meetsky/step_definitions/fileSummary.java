@@ -54,54 +54,20 @@ public class fileSummary {
     @Then("Check if the file summary footer numbers are correct")
     public void check_if_the_file_summary_footer_numbers_are_correct() {
 
-        boolean r1 = filesPage.foldersList.size() == Integer.parseInt(filesPage.folderInfo.getText().substring(0,1))
-                && filesPage.filesList.size() == Integer.parseInt(filesPage.fileInfo.getText().substring(0,1));
-        System.out.println(r1);
-        Assert.assertTrue(r1);
+        int filesCount = filesPage.filesList.size();
+        int foldersCount = filesPage.foldersList.size();
+
+        int fileCountFooter = Integer.parseInt(filesPage.fileInfo.getText().substring(0, 1));
+        int folderCountFooter = Integer.parseInt(filesPage.folderInfo.getText().substring(0, 1));
+
+        System.out.println("filesCount = " + filesCount);
+        System.out.println("fileCountFooter = " + fileCountFooter);
+        System.out.println("foldersCount = " + foldersCount);
+        System.out.println("folderCountFooter = " + folderCountFooter);
+
+        Assert.assertTrue((filesCount == fileCountFooter) && (foldersCount == folderCountFooter));
 
         Driver.closeDriver();
     }
 
-
-    /*
-
-
-
-    @Given("I should be logged in as a user with credentials {string} and {string}")
-    public void iShouldBeLoggedInAsAUserWithCredentialsAnd(String username, String password) {
-        loginPage.login(username, password);
-    }
-
-    @Given("I am on the dashboard page")
-    public void iAmOnTheDashboardPage() {
-        Assert.assertEquals(driver.getTitle(), "Files - Meetsky - QA");
-    }
-
-    @Given("Click to  plus icon")
-    public void click_to_plus_icon() {
-        filesPage.plusIcon.click();
-    }
-
-    @Given("Click to New text document link")
-    public void click_to_New_text_document_link() {
-        filesPage.newTextDocumentLink.click();
-    }
-
-    @And("Enter the {string} to the File name field \\(with extension)")
-    public void enterTheToTheFileNameFieldWithExtension(String fileName) {
-        filesPage.fileNameInput.clear();
-        filesPage.fileNameInput.sendKeys(fileName);
-    }
-
-    @When("Press enter from keyboard and Click to X button on the file edit page")
-    public void press_enter_from_keyboard_and_click_to_x_button_on_the_file_edit_page() {
-        filesPage.fileNameInput.sendKeys(Keys.ENTER);
-        filesPage.XButton.click();
-    }
-
-    @Then("Check if the file summary footer numbers are correct")
-    public void check_if_the_file_summary_footer_numbers_are_correct() {
-        Assert.assertTrue(filesPage.assertNumbers());
-    }
-     */
 }

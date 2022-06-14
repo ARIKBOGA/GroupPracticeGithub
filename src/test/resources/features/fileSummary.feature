@@ -1,4 +1,4 @@
-@Regression
+
 Feature: Verify that "file summary" footer works properly after creating a file
 
   Background: User is on the dashboard page
@@ -13,5 +13,5 @@ Feature: Verify that "file summary" footer works properly after creating a file
     When Press enter from keyboard and Click to X button on the file edit page
     Then Check if the file summary footer numbers are correct
     Examples:
-      | fileName |
-      | yut.md   |
+      | fileName     |
+      | ayfdfdeut.md |
