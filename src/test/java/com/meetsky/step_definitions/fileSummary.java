@@ -29,17 +29,17 @@ public class fileSummary {
         Assert.assertEquals(Driver.getDriver().getTitle(), "Files - Meetsky - QA");
     }
 
-    @Given("Click to  plus icon")
+    @When("Click to  plus icon")
     public void click_to_plus_icon() {
         filesPage.plusIcon.click();
     }
 
-    @Given("Click to New text document link")
+    @When("Click to New text document link")
     public void click_to_new_text_document_link() {
         filesPage.newTextDocumentLink.click();
     }
 
-    @Given("Enter the {string} to the File name field \\(with extension)")
+    @When("Enter the {string} to the File name field \\(with extension)")
     public void enter_the_to_the_file_name_field_with_extension(String fileName) {
         filesPage.fileNameInput.clear();
         filesPage.fileNameInput.sendKeys(fileName);
