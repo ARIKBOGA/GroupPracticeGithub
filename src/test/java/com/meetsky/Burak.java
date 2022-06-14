@@ -1,4 +1,4 @@
-package org.group;
+package com.meetsky;
 
 public class Burak {
     public static void main(String[] args) {

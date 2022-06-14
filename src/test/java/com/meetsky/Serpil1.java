@@ -1,4 +1,4 @@
-package org.group;
+package com.meetsky;
 
 public class Serpil1 {
     public static void main(String[] args) {
