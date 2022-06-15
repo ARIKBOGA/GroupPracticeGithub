@@ -7,7 +7,7 @@ import java.util.Properties;
 public class ConfigurationReader {
 
     //1- Create the object of Properties
-    private static final Properties properties = new Properties();
+    private static final Properties PROPERTIES = new Properties();
 
     static{
 
@@ -17,7 +17,7 @@ public class ConfigurationReader {
             FileInputStream file = new FileInputStream("configuration.properties");
 
             //3- Load the properties object using FileInputStream object
-            properties.load(file);
+            PROPERTIES.load(file);
 
             //close the file
             file.close();
@@ -31,7 +31,7 @@ public class ConfigurationReader {
     }
 
     public static String getProperty(String keyword){
-        return properties.getProperty(keyword);
+        return PROPERTIES.getProperty(keyword);
     }
 
 }

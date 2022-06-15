@@ -1,9 +1,10 @@
 
 Feature: Verify that "file summary" footer works properly after creating a file
 
+  Background:
+    Given I should be logged in as a user with credentials "Employee71" and "Employee123"
 
   Scenario Outline: Verify that "file summary" footer works properly after creating a file
-    Given I should be logged in as a user with credentials "Employee71" and "Employee123"
     Given I am on the dashboard page
     When Click to  plus icon
     And Click to New text document link
