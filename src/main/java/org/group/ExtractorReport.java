@@ -9,15 +9,16 @@ import java.util.regex.Pattern;
 public abstract class ExtractorReport {
 
     public abstract Pattern getPattern();
+
     public abstract String getReportName();
 
     public String parse(String path) throws FileNotFoundException {
-        String out="";
+        String out = "";
         File file = new File(path);
         Scanner scan = new Scanner(file);
-        if(scan.hasNextLine()) {
-           scan.nextLine();
-        }else {
+        if (scan.hasNextLine()) {
+            scan.nextLine();
+        } else {
             return "Empty file";
         }
         while (scan.hasNextLine()) {
@@ -25,7 +26,7 @@ public abstract class ExtractorReport {
             Matcher matcher = getPattern().matcher(nextLine);
 
             boolean match = matcher.matches();
-            if(match) {
+            if (match) {
                 out += nextLine + "\n";
             }
         }

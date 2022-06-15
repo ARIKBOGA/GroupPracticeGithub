@@ -9,7 +9,7 @@ public class ConfigurationReader {
     //1- Create the object of Properties
     private static final Properties PROPERTIES = new Properties();
 
-    static{
+    static {
 
         try {
 
@@ -30,7 +30,7 @@ public class ConfigurationReader {
 
     }
 
-    public static String getProperty(String keyword){
+    public static String getProperty(String keyword) {
         return PROPERTIES.getProperty(keyword);
     }
 
