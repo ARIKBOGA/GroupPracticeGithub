@@ -3,49 +3,22 @@ package com.meetsky.step_definitions;
 import com.meetsky.pages.FilesPage;
 import com.meetsky.pages.LoginPage;
 import com.meetsky.utilities.Driver;
-import io.cucumber.java.After;
-import io.cucumber.java.AfterStep;
-import io.cucumber.java.Before;
-import io.cucumber.java.Scenario;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
 
 public class fileSummary {
 
-    private WebDriver driver;
     private final LoginPage loginPage = new LoginPage();
     private final FilesPage filesPage = new FilesPage();
 
 
-    @Before
-    public void setDriver() {
-        driver = Driver.getDriver();
-    }
-
-    @After
-    public void teardownScenario(Scenario scenario) {
-        if (scenario.isFailed()) {
-            byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
-            scenario.attach(screenshot, "image/png", scenario.getName());
-        }
-        driver = null;
-        Driver.closeDriver();
-    }
-
-    @AfterStep
-    public void teardownStep() {
-    }
-
     @Given("I should be logged in as a user with credentials {string} and {string}")
     public void i_should_be_logged_in_as_a_user_with_credentials_and(String username, String password) {
 
-        driver.get("https://qa.meetsky.net/index.php/login");
+        Driver.getDriver().get("https://qa.meetsky.net/index.php/login");
         loginPage.login(username, password);
     }
 
@@ -95,6 +68,4 @@ public class fileSummary {
 
 
     }
-
-
 }
