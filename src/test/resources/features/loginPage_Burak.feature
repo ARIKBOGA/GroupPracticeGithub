@@ -1,7 +1,7 @@
 @Smoke @Regression
 Feature: As a user, I should be able to login.
 
-  @ValidLogin @PositiveScenario @wip
+  @PositiveScenario  @ValidLogin
   Scenario Outline: Login with valid credentials
     Given User goes to login page
     When User enters "<username>" username
@@ -12,7 +12,7 @@ Feature: As a user, I should be able to login.
       | username   | password    |
       | Employee71 | Employee123 |
 
-  @NegativeScenario
+  @NegativeScenario @InvalidLogin
   Scenario Outline: User can not login with any invalid credentials
   -"Wrong username or password." should be displayed for invalid credentials
   -"Please fill out this field." message should be displayed if the password or username is empty
