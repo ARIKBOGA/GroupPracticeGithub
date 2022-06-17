@@ -5,16 +5,21 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.awt.*;
+
 public class LoginPage {
 
     @FindBy(id = "user")
-    private WebElement usernameBox;
+    public WebElement usernameBox;
 
     @FindBy(id = "password")
-    private WebElement passwordBox;
+    public WebElement passwordBox;
 
     @FindBy(id = "submit-form")
-    private WebElement loginButton;
+    public WebElement loginButton;
+
+    @FindBy(xpath = "//p[@class='warning wrongPasswordMsg']")
+    public WebElement errorMessage;
 
     public LoginPage() {
         PageFactory.initElements(Driver.getDriver(), this);

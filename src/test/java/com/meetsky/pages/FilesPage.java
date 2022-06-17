@@ -7,7 +7,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 
-public class FilesPage {
+public class FilesPage extends BasePage {
 
     @FindBy(xpath = "//div[@id='uploadprogresswrapper']/../a")
     public WebElement plusIcon;
