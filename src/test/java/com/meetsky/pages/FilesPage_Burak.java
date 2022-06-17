@@ -7,7 +7,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 
-public class FilesPage extends BasePage {
+public class FilesPage_Burak extends BasePage {
 
     @FindBy(xpath = "//div[@id='uploadprogresswrapper']/../a")
     public WebElement plusIcon;
@@ -36,7 +36,7 @@ public class FilesPage extends BasePage {
     @FindBy(xpath = "//span[@class='fileinfo']")
     public WebElement fileInfo;
 
-    public FilesPage() {
+    public FilesPage_Burak() {
         PageFactory.initElements(Driver.getDriver(), this);
     }
 

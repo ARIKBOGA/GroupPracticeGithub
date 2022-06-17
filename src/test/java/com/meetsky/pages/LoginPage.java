@@ -18,8 +18,8 @@ public class LoginPage {
     @FindBy(id = "submit-form")
     public WebElement loginButton;
 
-    @FindBy(xpath = "//p[@class='warning wrongPasswordMsg']")
-    public WebElement errorMessage;
+    @FindBy(xpath = "//a[@class='toggle-password']")
+    public WebElement showPassword;
 
     public LoginPage() {
         PageFactory.initElements(Driver.getDriver(), this);
