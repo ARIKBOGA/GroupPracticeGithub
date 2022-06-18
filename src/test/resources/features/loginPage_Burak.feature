@@ -1,4 +1,4 @@
-@Smoke @Regression
+@Smoke @Regression @login
 Feature: As a user, I should be able to login.
 
   @PositiveScenario  @ValidLogin

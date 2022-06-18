@@ -2,7 +2,6 @@ package com.meetsky.step_definitions;
 
 import com.meetsky.utilities.Driver;
 import io.cucumber.java.After;
-import io.cucumber.java.AfterStep;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import org.openqa.selenium.OutputType;
@@ -23,9 +22,4 @@ public class Hooks {
         }
         Driver.closeDriver();
     }
-
-    @AfterStep
-    public void teardownStep() {
-    }
-
 }
