@@ -8,7 +8,7 @@ import io.cucumber.java.en.Then;
 import org.junit.Assert;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class LogOut_StepDefinitions {
+public class LogOut_StepDefinitions_Burak {
 
     LogOutPage_Burak logOutPage = new LogOutPage_Burak();
 
