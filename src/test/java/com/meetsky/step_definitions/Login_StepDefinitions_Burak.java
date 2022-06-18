@@ -1,6 +1,6 @@
 package com.meetsky.step_definitions;
 
-import com.meetsky.pages.LoginPage;
+import com.meetsky.pages.LoginPage_Burak;
 import com.meetsky.utilities.Driver;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -14,7 +14,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Login_StepDefinitions_Burak {
 
-    private LoginPage loginPage = new LoginPage();
+    protected LoginPage_Burak loginPageBurak = new LoginPage_Burak();
     private String expectedErrorMessage = "Wrong username or password.";
     private String actualErrorMessage = "";
     private int i = 0;
@@ -30,7 +30,7 @@ public class Login_StepDefinitions_Burak {
             expectedErrorMessage = "Please fill out this field.";
             i = 1;
         } else {
-            loginPage.usernameBox.sendKeys(username);
+            loginPageBurak.usernameBox.sendKeys(username);
         }
     }
 
@@ -41,13 +41,13 @@ public class Login_StepDefinitions_Burak {
             expectedErrorMessage = "Please fill out this field.";
             i = 2;
         } else {
-            loginPage.passwordBox.sendKeys(password);
+            loginPageBurak.passwordBox.sendKeys(password);
         }
     }
 
     @When("User clicks on login button")
     public void userClicksOnLoginButton() {
-        loginPage.loginButton.click();
+        loginPageBurak.loginButton.click();
     }
 
     @Then("User shouldn't be able to login and should see error message")
@@ -72,5 +72,38 @@ public class Login_StepDefinitions_Burak {
     @Then("User should be logged in")
     public void userShouldBeLoggedIn() {
         Assert.assertTrue(Driver.getDriver().getCurrentUrl().contains("apps/files"));
+    }
+
+    @Then("User should see the password in a form of dots")
+    public void userShouldSeeThePasswordInAFormOfDots() {
+        Assert.assertEquals("password", loginPageBurak.passwordBox.getAttribute("type"));
+    }
+
+    @And("User clicks on eye icon")
+    public void userClicksOnEyeIcon() {
+        loginPageBurak.showPassword.click();
+    }
+
+    @Then("User should see the password in a form of text")
+    public void userShouldSeeThePasswordInAFormOfText() {
+        Assert.assertEquals("text", loginPageBurak.passwordBox.getAttribute("type"));
+    }
+
+    @When("User clicks on Forgot password link")
+    public void userClicksOnLink() {
+        loginPageBurak.forgotPassword.click();
+    }
+
+    @Then("User should see the Reset Password button")
+    public void userShouldSeeTheButton() {
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 20);
+        wait.until(ExpectedConditions.visibilityOf(Driver.getDriver().findElement(By.id("reset-password-submit"))));
+        Assert.assertTrue(Driver.getDriver().findElement(By.id("reset-password-submit")).isDisplayed());
+    }
+
+    @When("User sees the {string} and {string} placeholders")
+    public void userSeesTheAndPlaceholders(String usernamePlaceholder, String passwordPlaceholder) {
+        Assert.assertEquals(usernamePlaceholder, loginPageBurak.usernameBox.getAttribute("placeholder"));
+        Assert.assertEquals(passwordPlaceholder, loginPageBurak.passwordBox.getAttribute("placeholder"));
     }
 }

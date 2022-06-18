@@ -5,9 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import java.awt.*;
-
-public class LoginPage {
+public class LoginPage_Burak {
 
     @FindBy(id = "user")
     public WebElement usernameBox;
@@ -21,7 +19,10 @@ public class LoginPage {
     @FindBy(xpath = "//a[@class='toggle-password']")
     public WebElement showPassword;
 
-    public LoginPage() {
+    @FindBy(id = "lost-password")
+    public WebElement forgotPassword;
+
+    public LoginPage_Burak() {
         PageFactory.initElements(Driver.getDriver(), this);
     }
 

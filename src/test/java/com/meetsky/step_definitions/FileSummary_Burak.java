@@ -1,7 +1,7 @@
 package com.meetsky.step_definitions;
 
 import com.meetsky.pages.FilesPage_Burak;
-import com.meetsky.pages.LoginPage;
+import com.meetsky.pages.LoginPage_Burak;
 import com.meetsky.utilities.Driver;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -11,7 +11,7 @@ import org.openqa.selenium.Keys;
 
 public class FileSummary_Burak {
 
-    private final LoginPage loginPage = new LoginPage();
+    private final LoginPage_Burak loginPageBurak = new LoginPage_Burak();
     private final FilesPage_Burak filesPageBurak = new FilesPage_Burak();
 
 
@@ -19,7 +19,7 @@ public class FileSummary_Burak {
     public void i_should_be_logged_in_as_a_user_with_credentials_and(String username, String password) {
 
         Driver.getDriver().get("https://qa.meetsky.net/index.php/login");
-        loginPage.login(username, password);
+        loginPageBurak.login(username, password);
     }
 
     @Given("I am on the dashboard page")
