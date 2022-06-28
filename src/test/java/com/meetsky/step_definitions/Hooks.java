@@ -1,5 +1,6 @@
 package com.meetsky.step_definitions;
 
+import com.google.common.io.Files;
 import com.meetsky.utilities.Driver;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -7,7 +8,12 @@ import io.cucumber.java.Scenario;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 
+import java.io.File;
+import java.io.IOException;
+
 public class Hooks {
+
+    private static int id = 1;
 
     @Before
     public void setDriver() {
@@ -15,11 +21,13 @@ public class Hooks {
     }
 
     @After
-    public void teardownScenario(Scenario scenario) {
-        if (scenario.isFailed()) {
-            byte[] screenshot = ((TakesScreenshot) Driver.getDriver()).getScreenshotAs(OutputType.BYTES);
-            scenario.attach(screenshot, "image/png", scenario.getName());
-        }
+    public void teardownScenario(Scenario scenario) throws IOException {
+        //if (scenario.isFailed()) {
+        File camera = ((TakesScreenshot) Driver.getDriver()).getScreenshotAs(OutputType.FILE);
+        Files.move(camera, new File("screenshots/" + id + "_" + scenario.getName() + ".png"));
+        byte[] screenshot = ((TakesScreenshot) Driver.getDriver()).getScreenshotAs(OutputType.BYTES);
+        scenario.attach(screenshot, "image/png", (id++) + scenario.getName());
+        // }
         Driver.closeDriver();
     }
 }
