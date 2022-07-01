@@ -32,7 +32,14 @@ public class Login_StepDefinitions_Burak {
     @When("User enters {string} username")
     public void userEnters(String username) {
         if (username.isEmpty() || username.isBlank()) {
-            changeExpectedErrorMessageForEmpty(1);
+            // make the "i" variable as 1 to change the expected error message
+            // for username input-box left blank
+            changeExpectedErrorMessage(1);
+        } else if (username.length() > 15 || username.length() < 2) {
+            // make the "i" variable as 3 to change the expected error message
+            // for username input-box length mismatch
+            changeExpectedErrorMessage(3);
+            loginPageBurak.usernameBox.sendKeys(username);
         } else {
             loginPageBurak.usernameBox.sendKeys(username);
         }
@@ -42,7 +49,14 @@ public class Login_StepDefinitions_Burak {
     @And("User enters {string} password")
     public void userEntersPassword(String password) {
         if (password.isEmpty() || password.isBlank()) {
-            changeExpectedErrorMessageForEmpty(2);
+            // make the "i" variable as 1 to change the expected error message
+            // for password input-box left blank
+            changeExpectedErrorMessage(2);
+        } else if (password.length() > 15 || password.length() < 2) {
+            // make the "i" variable as 3 to change the expected error message
+            // for password input-box length mismatch
+            changeExpectedErrorMessage(3);
+            loginPageBurak.passwordBox.sendKeys(password);
         } else {
             loginPageBurak.passwordBox.sendKeys(password);
         }
@@ -56,15 +70,20 @@ public class Login_StepDefinitions_Burak {
     @Then("User shouldn't be able to login and should see error message")
     public void userShouldnTBeAbleToLoginAndShouldSeeErrorMessage() {
         switch (i) {
-            case 0:
-                actualErrorMessage = Driver.getDriver().findElement(By.xpath("//p[contains(text(),'Wrong username or password.')]")).getText();
+            case 0: // check the error message element's text for invalid entry
+            case 3: // check the error message element's text for length mismatch entry
+                actualErrorMessage = Driver.getDriver()
+                        .findElement(By.xpath("//p[@class='warning wrongPasswordMsg']"))
+                        .getText();
                 break;
-            case 1:
-                WebElement username = new WebDriverWait(Driver.getDriver(), 20).until(ExpectedConditions.elementToBeClickable(By.id("user")));
+            case 1: // check the USERNAME input-box for getting error message for left blank
+                WebElement username = new WebDriverWait(Driver.getDriver(), 20)
+                        .until(ExpectedConditions.elementToBeClickable(By.id("user")));
                 actualErrorMessage = username.getAttribute("validationMessage");
                 break;
-            case 2:
-                WebElement password = new WebDriverWait(Driver.getDriver(), 20).until(ExpectedConditions.elementToBeClickable(By.id("password")));
+            case 2: // check the PASSWORD input-box for getting error message for left blank
+                WebElement password = new WebDriverWait(Driver.getDriver(), 20)
+                        .until(ExpectedConditions.elementToBeClickable(By.id("password")));
                 actualErrorMessage = password.getAttribute("validationMessage");
                 break;
         }
@@ -110,8 +129,11 @@ public class Login_StepDefinitions_Burak {
         Assert.assertEquals(passwordPlaceholder, loginPageBurak.passwordBox.getAttribute("placeholder"));
     }
 
-    private void changeExpectedErrorMessageForEmpty(int a) {
-        expectedErrorMessage = ConfigurationReader.getProperty("error_message_for_empty");
+    private void changeExpectedErrorMessage(int a) {
+        if (a == 3) { // if "a" equals to 3 then change the expected error message for length mismatch
+            expectedErrorMessage = ConfigurationReader.getProperty("error_message_for_length_mismatch");
+        } else // if "a" equals to 1 or 2 then change the expected error message for input-box that left blank
+            expectedErrorMessage = ConfigurationReader.getProperty("error_message_for_empty");
         i = a;
     }
 }

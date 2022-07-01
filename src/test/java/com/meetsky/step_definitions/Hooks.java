@@ -22,12 +22,12 @@ public class Hooks {
 
     @After
     public void teardownScenario(Scenario scenario) throws IOException {
-        //if (scenario.isFailed()) {
-        File camera = ((TakesScreenshot) Driver.getDriver()).getScreenshotAs(OutputType.FILE);
-        Files.move(camera, new File("screenshots/" + id + "_" + scenario.getName() + ".png"));
-        byte[] screenshot = ((TakesScreenshot) Driver.getDriver()).getScreenshotAs(OutputType.BYTES);
-        scenario.attach(screenshot, "image/png", (id++) + scenario.getName());
-        // }
+        if (scenario.isFailed()) {
+            File camera = ((TakesScreenshot) Driver.getDriver()).getScreenshotAs(OutputType.FILE);
+            Files.move(camera, new File("screenshots/" + id + "_" + scenario.getName() + ".png"));
+            byte[] screenshot = ((TakesScreenshot) Driver.getDriver()).getScreenshotAs(OutputType.BYTES);
+            scenario.attach(screenshot, "image/png", (id++) + scenario.getName());
+        }
         Driver.closeDriver();
     }
 }
