@@ -7,13 +7,11 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.util.concurrent.TimeUnit;
 
-public abstract class Driver {
-
     /*
-    Creating a private constructor, so we are closing
+    Making this class as abstract and implementing encapsulation, so we are closing
     access to the object of this class from outside the class
      */
-
+public abstract class Driver {
 
     /*
     We make WebDriver private, because we want to close access from outside the class.
@@ -21,14 +19,14 @@ public abstract class Driver {
      */
     //private static WebDriver driver; // value is null by default
 
-    private static WebDriver driver;
+    private static InheritableThreadLocal<WebDriver> driverPool = new InheritableThreadLocal<>();
 
     /*
     Create a re-usable utility method which will return same driver instance when we call it
      */
-    public static WebDriver getDriver() {
+    public static WebDriver getDriver(){
 
-        if (driver == null) {
+        if (driverPool.get() == null){
 
             /*
             We read our browserType from configuration.properties.
@@ -41,31 +39,34 @@ public abstract class Driver {
                 Depending on the browserType that will be return from configuration.properties file
                 switch statement will determine the case, and open the matching browser
             */
-            switch (browserType) {
+            switch (browserType){
                 case "chrome":
                     WebDriverManager.chromedriver().setup();
-                    driver = new ChromeDriver();
+                    driverPool.set(new ChromeDriver());
+                    driverPool.get().manage().window().maximize();
+                    driverPool.get().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
                     break;
                 case "firefox":
                     WebDriverManager.firefoxdriver().setup();
-                    driver = new FirefoxDriver();
+                    driverPool.set(new FirefoxDriver());
+                    driverPool.get().manage().window().maximize();
+                    driverPool.get().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
                     break;
+
             }
-            driver.manage().window().maximize();
-            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         }
 
-        return driver;
+        return driverPool.get();
 
     }
 
     /*
     This method will make sure our driver value is always null after using quit() method
      */
-    public static void closeDriver() {
-        if (driver != null) {
-            driver.quit(); // this line will terminate the existing session. value will not even be null
-            driver = null;
+    public static void closeDriver(){
+        if (driverPool.get() != null){
+            driverPool.get().quit(); // this line will terminate the existing session. value will not even be null
+            driverPool.remove();
         }
     }
 

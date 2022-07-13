@@ -4,12 +4,12 @@ Feature: As a user, I should be able to login.
   @PositiveScenario  @ValidLogin @MTSK-373
   Scenario Outline: User can login with valid credentials
     Given User goes to login page
-    When User enters "<username>" username
-    And User enters "<password>" password
+    When User enters "<user name>" username
+    And User enters "<pass word>" password
     And User clicks on login button
     Then User should be logged in
     Examples:
-      | username   | password    |
+      | user name  | pass word   |
       | Employee71 | Employee123 |
       | Employee11 | Employee123 |
       | Employee21 | Employee123 |
